@@ -296,8 +296,8 @@ When Train detect the static/assets folder, it will disable the Include Directiv
 
 // to
 
-<script src="/assets/js/app-c5d14af50112f85c0aee9181b14f02e4.js"></script>
-<link rel="stylesheet" href="/assets/css/home-924c344bccc46742a90835cc104dbe20.css">
+<script src="/static/assets/js/app-c5d14af50112f85c0aee9181b14f02e4.js"></script>
+<link rel="stylesheet" href="/static/assets/css/home-924c344bccc46742a90835cc104dbe20.css">
 ```
 
 ### Why Fingerprinting?
