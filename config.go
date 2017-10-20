@@ -14,11 +14,11 @@ type config struct {
 	// Show verbose logs. For example, SASS warnings.
 	Verbose bool
 	// Whether to serve bundled assets in development mode. This option is ignored
-	// when in production mode, that is, the ./public/assets folder exists.
+	// when in production mode, that is, the ./static/assets folder exists.
 	BundleAssets bool
 	// When set to DEVELOPMENT_MODE, assets are read from ./assets
-	// When set to PRODUCTION_MODE, assets are read from ./public/assets
-	// It is set to PRODUCTION_MODE automatically if the ./public/assets exist.
+	// When set to PRODUCTION_MODE, assets are read from ./static/assets
+	// It is set to PRODUCTION_MODE automatically if the ./static/assets exist.
 	Mode string
 	SASS sassConfig
 }
@@ -37,7 +37,7 @@ type sassConfig struct {
 var Config = config{
 	AssetsPath: "assets",
 	AssetsUrl:  "/assets/",
-	PublicPath: "public",
+	PublicPath: "static",
 	Mode:       DEVELOPMENT_MODE,
 }
 
@@ -48,7 +48,7 @@ func init() {
 
 	if IsInProduction() {
 		if err := LoadManifestInfo(); err != nil {
-			fmt.Println("== Could not load manifest from public/assets/")
+			fmt.Println("== Could not load manifest from static/assets/")
 		}
 	}
 }
@@ -58,6 +58,6 @@ func IsInProduction() bool {
 }
 
 func HasPublicAssets() bool {
-	_, err := os.Stat("public" + Config.AssetsUrl)
+	_, err := os.Stat("static" + Config.AssetsUrl)
 	return err == nil
 }

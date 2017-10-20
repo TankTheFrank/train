@@ -51,7 +51,7 @@ func setupFileServer() {
 		assetServer = &server
 	}
 	if publicAssetServer == nil {
-		server := http.FileServer(http.Dir("public"))
+		server := http.FileServer(http.Dir("static"))
 		publicAssetServer = &server
 	}
 }

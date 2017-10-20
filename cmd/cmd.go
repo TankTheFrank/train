@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/shaoshing/train"
-	. "github.com/shaoshing/train/command"
+
+	"github.com/tankthefrank/train"
+	. "github.com/tankthefrank/train/command"
 )
 
 var helpFlag bool
@@ -13,8 +14,8 @@ var outPath string
 
 func main() {
 	flag.BoolVar(&helpFlag, "h", false, "")
-	flag.StringVar(&sourcePath, "source", "./assets", "")
-	flag.StringVar(&outPath, "out", "./public", "")
+	flag.StringVar(&sourcePath, "source", "assets", "")
+	flag.StringVar(&outPath, "out", "static", "")
 	flag.Parse()
 
 	command := "bundle"
@@ -57,12 +58,12 @@ OPTIONS
     example: $ train --source app/assets bundle
 
   --out
-    Assets output path, default: ./public
-    example: $ train --out /tmp/public bundle
+    Assets output path, default: ./static
+    example: $ train --out /tmp/static bundle
 
 COMMANDS
   bundle [default]
-    Bundle assets into ./public/assets
+    Bundle assets into ./static/assets
 
   upgrade
     Update the package and Install the train command.

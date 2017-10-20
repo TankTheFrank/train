@@ -39,7 +39,7 @@ func WriteToManifest(fpAssets FpAssets) (err error) {
 	var content string
 	for assetUrl, assetHashedUrl := range fpAssets {
 		assetUrl = strings.Replace(assetUrl, Config.PublicPath, "", -1)
-		assetHashedUrl = strings.Replace(assetHashedUrl, Config.PublicPath, "", -1)
+		assetHashedUrl = strings.Join([]string{"/", assetHashedUrl}, "")
 		content += assetUrl + ManifestSeparator + assetHashedUrl + "\n"
 	}
 

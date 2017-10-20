@@ -22,7 +22,7 @@ _testmain.go
 *.exe
 cmd/cmd
 
-**/public/assets
+**/static/assets
 .sass-cache
 *.pid
 *.DS_Store

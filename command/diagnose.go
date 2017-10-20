@@ -5,7 +5,7 @@ import (
 	"path"
 	"runtime"
 
-	"github.com/shaoshing/train/interpreter"
+	"github.com/tankthefrank/train/interpreter"
 )
 
 func Diagnose() bool {
@@ -23,7 +23,7 @@ func Diagnose() bool {
 		fmt.Println("   (install it if you wish to use SASS: npm install -g node-sass@2.0.1)\n")
 		allGood = false
 	} else {
-		_, err = interpreter.Compile(assetsPath + "/stylesheets/font.sass")
+		_, err = interpreter.Compile(assetsPath + "/css/font.sass")
 		if err != nil {
 			fmt.Println("-- SASS is disabled because error raised while compiling. Error:")
 			fmt.Printf("%s\n", err.Error())
@@ -37,7 +37,7 @@ func Diagnose() bool {
 		fmt.Println("   (install it if you wish to use CoffeeScript : npm install -g coffee-script@1.6.2)")
 		allGood = false
 	} else {
-		_, err = interpreter.Compile(assetsPath + "/javascripts/app.coffee")
+		_, err = interpreter.Compile(assetsPath + "/js/app.coffee")
 		if err != nil {
 			fmt.Println("-- CoffeeScript is disabled because error raised while compiling. Error: ")
 			fmt.Printf("%s\n", err.Error())
@@ -48,7 +48,7 @@ func Diagnose() bool {
 	if allGood {
 		fmt.Println("-- Great, your environment seems perfect for Train.")
 	} else {
-		fmt.Println("-- (Please create an issue at github.com/shaoshing/train/issues if you need help)")
+		fmt.Println("-- (Please create an issue at github.com/tankthefrank/train/issues if you need help)")
 	}
 
 	return allGood

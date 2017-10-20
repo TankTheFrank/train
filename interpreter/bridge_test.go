@@ -13,43 +13,43 @@ func init() {
 func TestSass(t *testing.T) {
 	assert.Test = t
 
-	css, e := Compile("assets/stylesheets/app.scss")
+	css, e := Compile("assets/css/app.scss")
 	if e != nil {
 		panic(e)
 	}
 	assert.Contain("h1", css)
 	assert.Contain("h2", css)
 
-	css, e = Compile("assets/stylesheets/app2.scss")
+	css, e = Compile("assets/css/app2.scss")
 	if e != nil {
 		panic(e)
 	}
 	assert.Contain("h2", css)
 	assert.Contain("h3", css)
 
-	css, e = Compile("assets/stylesheets/app.err.sass")
+	css, e = Compile("assets/css/app.err.sass")
 	assert.True(e != nil)
 	assert.Contain("Could not compile sass:", e.Error())
 
 	// Config.SASS.DebugInfo = true
-	// css, e = Compile("assets/stylesheets/app.scss")
+	// css, e = Compile("assets/css/app.scss")
 	// assert.Contain("-sass-debug-info", css)
 
 	Config.SASS.LineNumbers = true
-	css, e = Compile("assets/stylesheets/app.scss")
+	css, e = Compile("assets/css/app.scss")
 	assert.Contain("line 1", css)
 }
 
 func TestCoffee(t *testing.T) {
 	assert.Test = t
 
-	js, e := Compile("assets/javascripts/app.coffee")
+	js, e := Compile("assets/js/app.coffee")
 	if e != nil {
 		panic(e)
 	}
 	assert.Contain("square", js)
 
-	js, e = Compile("assets/javascripts/app.err.coffee")
+	js, e = Compile("assets/js/app.err.coffee")
 	assert.True(e != nil)
 	assert.Contain("Could not compile coffee:", e.Error())
 }
@@ -60,7 +60,7 @@ func TestConcurrency(t *testing.T) {
 	compileChan := make(chan bool)
 	for i := 0; i < concurrency; i++ {
 		go func() {
-			Compile("assets/stylesheets/app.sass")
+			Compile("assets/css/app.sass")
 			compileChan <- true
 		}()
 	}

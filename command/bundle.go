@@ -4,7 +4,6 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
-	"github.com/shaoshing/train"
 	"io"
 	"io/ioutil"
 	"os"
@@ -14,6 +13,8 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
+
+	"github.com/tankthefrank/train"
 )
 
 const CompressorFileName = "yuicompressor-2.4.7.jar"
@@ -47,7 +48,7 @@ func prepareEnv() bool {
 			panic(err)
 		}
 	} else if !public.IsDir() {
-		fmt.Println("Can't create public directory automatically because a file with the same name already exists.\nPlease consider renaming your file or moving it to another folder.")
+		fmt.Println("Can't create static directory automatically because a file with the same name already exists.\nPlease consider renaming your file or moving it to another folder.")
 		return false
 	}
 

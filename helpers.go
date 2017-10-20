@@ -22,13 +22,13 @@ const (
 )
 
 func JavascriptTag(name string) template.HTML {
-	assetUrl := "javascripts/" + name + ".js"
+	assetUrl := "js/" + name + ".js"
 	paths, mtimes := resolveAssetUrls(assetUrl)
 	return generateRawHtml(paths, "", mtimes, javascriptTag)
 }
 
 func StylesheetTagWithParam(name string, param string) template.HTML {
-	assetUrl := "stylesheets/" + name + ".css"
+	assetUrl := "css/" + name + ".css"
 	paths, mtimes := resolveAssetUrls(assetUrl)
 	return generateRawHtml(paths, param, mtimes, stylesheetTag)
 }

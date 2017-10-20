@@ -1,10 +1,11 @@
 package trainCommand
 
 import (
-	"github.com/shaoshing/train"
-	"github.com/shaoshing/gotest"
 	"io/ioutil"
 	"testing"
+
+	"github.com/shaoshing/gotest"
+	"github.com/tankthefrank/train"
 )
 
 func init() {
@@ -28,21 +29,21 @@ func TestCommand(t *testing.T) {
 
 	copyAssets()
 
-	assertEqual("public/assets/javascripts/normal.js", "normal.js\n")
-	assertEqual("public/assets/javascripts/require.js", `//= require javascripts/normal
-//= require javascripts/sub/require
+	assertEqual("static/assets/js/normal.js", "normal.js\n")
+	assertEqual("static/assets/js/require.js", `//= require js/normal
+//= require js/sub/require
 require.js
 `)
-	assertEqual("public/assets/stylesheets/require.css", `/*
- *= require stylesheets/normal
- *= require stylesheets/sub/require
+	assertEqual("static/assets/css/require.css", `/*
+ *= require css/normal
+ *= require css/sub/require
  */
 require.css
 `)
 
 	bundleAssets()
-	assertEqual("public/assets/javascripts/normal.js", "normal.js\n")
-	assertEqual("public/assets/javascripts/require.js", `normal.js
+	assertEqual("static/assets/js/normal.js", "normal.js\n")
+	assertEqual("static/assets/js/require.js", `normal.js
 
 sub/normal.js
 
@@ -50,7 +51,7 @@ sub/require.js
 
 require.js
 `)
-	assertEqual("public/assets/stylesheets/require.css", `normal.css
+	assertEqual("static/assets/css/require.css", `normal.css
 
 sub/normal.css
 
@@ -59,18 +60,18 @@ sub/require.css
 require.css
 `)
 
-	assertEqual("public/assets/stylesheets/font.css", `h1 {
+	assertEqual("static/assets/css/font.css", `h1 {
   color: green; }`)
-	assertEqual("public/assets/stylesheets/app.css", `h1 {
+	assertEqual("static/assets/css/app.css", `h1 {
   color: green; }
 
 h2 {
   color: green; }`)
 
-	assertEqual("public/assets/stylesheets/scss.css", `h2 {
+	assertEqual("static/assets/css/scss.css", `h2 {
   color: green; }`)
 
-	assertEqual("public/assets/javascripts/app.js", `(function() {
+	assertEqual("static/assets/js/app.js", `(function() {
   var a;
 
   a = 12;
@@ -79,8 +80,8 @@ h2 {
 `)
 
 	compressAssets()
-	assertEqual("public/assets/javascripts/require.js", `normal.js;sub/normal.js;sub/require.js;require.js;`)
-	assertEqual("public/assets/javascripts/require-min.js", `Please
+	assertEqual("static/assets/js/require.js", `normal.js;sub/normal.js;sub/require.js;require.js;`)
+	assertEqual("static/assets/js/require-min.js", `Please
 Do
 Not
 Compresee
@@ -88,9 +89,9 @@ Me
 `)
 
 	fingerPrintAssets()
-	assertEqual("public/assets/stylesheets/font.css", `h1{color:green}`) // should keep original assets
+	assertEqual("static/assets/css/font.css", `h1{color:green}`) // should keep original assets
 	train.LoadManifestInfo()
-	assertEqual("public"+train.ManifestInfo["/assets/stylesheets/font.css"], `h1{color:green}`)
+	assertEqual("static"+train.ManifestInfo["/assets/css/font.css"], `h1{color:green}`)
 
 	removeAssets()
 }

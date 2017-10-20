@@ -1,0 +1,8 @@
+/*
+ *= require css/normal1
+ *= require css/sub/require
+ */
+@import "normal1";
+.foo { 
+	.bar { color: red; }
+}

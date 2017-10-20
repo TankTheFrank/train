@@ -11,7 +11,7 @@ func SetFileServer() {
 	setupFileServer()
 
 	if IsInProduction() {
-		fmt.Println("[Production] Serving assets from ./public/assets")
+		fmt.Println("[Production] Serving assets from ./static/assets")
 		server = servePublicAssets
 	} else {
 		fmt.Println("[Development] Serving assets from ./assets")

@@ -10,7 +10,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-  "github.com/shaoshing/train/interpreter"
+  "github.com/tankthefrank/train/interpreter"
 )
 
 func ReadAsset(assetUrl string) (result string, err error) {
@@ -144,7 +144,7 @@ var mapAlterExtensions = map[string]string{
 }
 
 // Find possible asset files.
-// url = javascripts/asset.js
+// url = js/asset.js
 // if url exist
 // => javascript/asset.js
 // or url alternation exist

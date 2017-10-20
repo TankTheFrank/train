@@ -29,10 +29,10 @@ func TestDeliverUnbundledAssets(t *testing.T) {
 	assertAsset("/assets/images/dummy.png", "dummy\n", "image/png")
 	assert404("/assets/not/found.js")
 
-	assertAsset("/assets/javascripts/normal.js", "@normal.js\n", "application/javascript")
-	assertAsset("/assets/stylesheets/normal.css", "normal.css\n", "text/css")
+	assertAsset("/assets/js/normal.js", "@normal.js\n", "application/javascript")
+	assertAsset("/assets/css/normal.css", "normal.css\n", "text/css")
 
-	bundledJs := assertAsset("/assets/javascripts/require.js", "", "application/javascript")
+	bundledJs := assertAsset("/assets/js/require.js", "", "application/javascript")
 	assert.Contain("@sub/normal.js", bundledJs)
 	assert.Contain("@sub/normal1.coffee", bundledJs)
 	assert.Contain("@sub/require.js", bundledJs)
@@ -40,7 +40,7 @@ func TestDeliverUnbundledAssets(t *testing.T) {
 	assert.Contain("@normal1.coffee", bundledJs)
 	assert.Contain("@require.js", bundledJs)
 
-	assertAsset("/assets/stylesheets/require.css", `normal.css
+	assertAsset("/assets/css/require.css", `normal.css
 
 sub/normal.css
 
@@ -49,26 +49,26 @@ sub/require.css
 require.css
 `, "text/css")
 
-	assertAsset("/assets/stylesheets/app.css", `h1 {
+	assertAsset("/assets/css/app.css", `h1 {
   color: green; }
 
 h2 {
   color: red; }`, "text/css")
 
-	assertAsset("/assets/stylesheets/app2.css", `h2 {
+	assertAsset("/assets/css/app2.css", `h2 {
   color: green; }
 
 h3 {
   color: green; }`, "text/css")
 
-	body, _, status := get("/assets/stylesheets/app.err.css")
+	body, _, status := get("/assets/css/app.err.css")
 	assert.Contain("Could not compile sass", body)
 	assert.Equal(500, status)
 
-	body, _, _ = get("/assets/javascripts/app.js")
+	body, _, _ = get("/assets/js/app.js")
 	assert.Contain("square = function(x)", body)
 
-	body, _, status = get("/assets/javascripts/app.err.js")
+	body, _, status = get("/assets/js/app.err.js")
 	assert.Contain("Could not compile coffee", body)
 	assert.Equal(500, status)
 }
@@ -78,9 +78,9 @@ func TestDeliverBundledAssets(t *testing.T) {
 	initServer()
 
 	assert.Test = t
-	exec.Command("cp", "-rf", "assets/public", "./").Run()
+	exec.Command("cp", "-rf", "assets/static", "./").Run()
 	defer func() {
-		exec.Command("rm", "-rf", "public").Run()
+		exec.Command("rm", "-rf", "static").Run()
 		Config.Mode = DEVELOPMENT_MODE
 	}()
 
