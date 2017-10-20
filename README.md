@@ -27,8 +27,8 @@ $ go build -o $GOPATH/bin/train github.com/tankthefrank/train/cmd
 Install [node-sass](https://github.com/sass/node-sass), [CoffeeCcript](http://coffeescript.org/)
 
 ```bash
-$ npm install -g node-sass@2.0.1
-$ npm install -g coffee-script@1.6.2
+$ npm install -g node-sass
+$ npm install -g coffee-script
 ```
 
 ### Prepare for the Pipeline feature
@@ -56,11 +56,6 @@ In the example page, you can toggle the Include Directive feature, or try out th
 
 ### Use it in a beego project
 
-
-### Use it in a generic project
-
-First, allow train to handle assets requests by adding handler to the http.ServeMux:
-
 ```go
 
 import (
@@ -83,8 +78,13 @@ func init() {
 	}))
 }
 
-...
+```
 
+### Use it in a generic project
+
+First, allow train to handle assets requests by adding handler to the http.ServeMux:
+
+```go
 // Adding handler to the http.DefaultServeMux
 train.ConfigureHttpHandler(nil)
 http.ListenAndServe(":8000", nil)
