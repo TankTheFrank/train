@@ -257,6 +257,7 @@ $ train
 -> bundle and compile assets
 -> compress assets
 -> Fingerprinting Assets
+-> cleaup assets directory
 ```
 
 The following example is what were generated after running the `train` command:

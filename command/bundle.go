@@ -37,6 +37,7 @@ func Bundle(assetsPath string, publicPath string) {
 	bundleAssets()
 	compressAssets()
 	fingerPrintAssets()
+	cleanupAssetsDirectory()
 }
 
 func prepareEnv() bool {
@@ -212,6 +213,51 @@ func fingerPrintAssets() {
 	if err := train.WriteToManifest(fpAssets); err != nil {
 		panic(err)
 	}
+}
+
+func cleanupAssetsDirectory() {
+	fmt.Println("-> cleaup assets directory")
+
+	publicAssetPath := train.Config.PublicPath + train.Config.AssetsUrl
+	filepath.Walk(publicAssetPath, func(filePath string, info os.FileInfo, err error) error {
+		if info.IsDir() {
+			if empty, err := IsEmptyDirectory(filePath); empty && err == nil {
+				os.Remove(filePath)
+			}
+
+			return nil
+		}
+
+		if path.Base(filePath) == "manifest.txt" {
+			return nil
+		}
+
+		fileExt := path.Ext(filePath)
+		switch fileExt {
+		case ".js":
+		case ".css":
+		default:
+			os.Remove(filePath)
+		}
+		return nil
+	})
+
+	return
+}
+
+// IsEmptyDirectory checks if a given directory is empty or not
+func IsEmptyDirectory(name string) (bool, error) {
+	f, err := os.Open(name)
+	if err != nil {
+		return false, err
+	}
+	defer f.Close()
+
+	_, err = f.Readdirnames(1) // Or f.Readdir(1)
+	if err == io.EOF {
+		return true, nil
+	}
+	return false, err // Either not empty or error, suits both cases
 }
 
 func GetHashedAsset(assetPath string) (hashedPath string, content []byte, err error) {
